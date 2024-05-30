@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 function HeaderSearch()
 {
     return (
         <>
            <div className="flex items-center gap-5"> 
             <div className="cursor-pointer ">
-                <a>Home</a>
-                <a className="mx-3">Categories</a>
-                <a>Contact Us</a>
-                <a className="ml-3">About Us</a>
+               <Link to="/">Home</Link>
+               <Link className="mx-3" to="/categories">Categories</Link>
+               <Link to="/contactus">Contact Us</Link>
+               <Link  className="ml-3" to="/aboutus">About Us</Link>
             </div>
            <div className="flex">
             <input type="text" name="textbox" className="h-12 p-2 mr-8 bg-gray-200 rounded-lg w-96" placeholder="Search for restaurant and food" id="text1" />

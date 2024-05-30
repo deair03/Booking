@@ -1,64 +1,55 @@
-import HeaderLogo from "./components/HeaderLogo";
-import HeaderSearch from "./components/HeaderSearch";
-import CardSection from "./components/CardSection";
-import LocalitySection from "./components/LocalitySection";
-import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ReactDOM from "react-dom/client";
+import Header from "./components/Hearder";
+import Body from "./components/Body";
+import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import Categories from "./components/Categories";
 import ContactUs from "./components/ContactUs";
 import AboutUs from "./components/AboutUs";
-function App()
-{
-    const [isVisible, setIsVisible] = useState(false);
+import Error from "./components/Error";
 
-
-    function toggle()
-    {
-        setIsVisible(n => !n);
-
-    }
-
+const AppLayout = () => {
     return (
-        <>
-            <div className="flex justify-between py-5 border-b shadow-sm px-52">
-                <HeaderLogo />
-                <HeaderSearch />
-            </div>
-            <div className="py-5 px-60">
-                <button onClick={toggle} className="p-3 transition-all ease-in-out border-2 hover:scale-95 rounded-xl" >{isVisible ? "Hide" : "Show"} all details</button>
-                {(isVisible) && <div>
-                    <CardSection />
-                    <LocalitySection />
-                </div>}
+      <>
+        <Header />
+        <div className="py-5 px-60">
+          <Outlet />
+        </div>
+      </>
+    );
+  };
+  
 
-            </div>
-
-        </>
-    )
-}
+  function App() {
+    return <RouterProvider router={appRouter} />;
+  }
+  
+  
 
 const appRouter = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
         path: "/",
-        element:<CardSection />
-    },
-    {
-        path: "/",
+        element: <Body />
+         
+      },
+      {
+        path: "/categories",
         element:<Categories />
-
-    },{
-        path: "/",
-        element:<ContactUs />
-
-    },
-    {
-        path: "/",
-        element:<AboutUs />
-
-    },
+      },
+      {
+        path: "/contactus",
+        element: <ContactUs />
+     
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs />
+      },
+    ],
+    errorElement: <Error />,
+  },
 ]);
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
 
 export default App;
